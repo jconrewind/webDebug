@@ -1,10 +1,11 @@
 import { useState } from "react";
 
-import Tabs from "../Tabs/Tabs";
+import Nav from "../Nav/Nav";
 
 function HomePage() {
-  const [serverIP, setServerIP] = useState("");
+  const [providersItems, setProvidersItems] = useState([]);
   const [displayTabs, setDisplayTabs] = useState(false);
+  const [serverIP, setServerIP] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -13,7 +14,11 @@ function HomePage() {
     fetch(`http://localhost:8000/debuglist`)
       .then((res) => res.json())
       .then((json) => {
-        console.log(json, "--> json");
+        const { allPages } = json;
+        console.log(allPages, "--> allPages");
+        let pages = allPages.filter((el) => el.name);
+        console.log(pages, "--> pagesfinal");
+        setProvidersItems((items) => (items = pages));
         setDisplayTabs((v) => (v = true));
       });
   };
@@ -30,7 +35,7 @@ function HomePage() {
         height: "90vh",
       }}
     >
-      <div>{displayTabs && <Tabs />}</div>
+      <div>{displayTabs && <Nav items={providersItems} />}</div>
       <div
         style={{
           height: "45vh",
