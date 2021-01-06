@@ -9,16 +9,12 @@ function HomePage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(serverIP, "--> serverIP");
 
-    fetch(`http://localhost:8000/debuglist`)
+    fetch(`http://localhost:8001/templatesList`)
       .then((res) => res.json())
       .then((json) => {
-        const { allPages } = json;
-        console.log(allPages, "--> allPages");
-        let pages = allPages.filter((el) => el.name);
-        console.log(pages, "--> pagesfinal");
-        setProvidersItems((items) => (items = pages));
+        const { templateFolder } = json;
+        setProvidersItems((items) => (items = templateFolder));
         setDisplayTabs((v) => (v = true));
       });
   };
