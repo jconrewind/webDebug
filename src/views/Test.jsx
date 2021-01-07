@@ -1,13 +1,12 @@
 import React, { useEffect } from "react";
 import io from "socket.io-client";
-// const socket = io("http://localhost:27105");
-const socket = io("http://localhost:8000");
+const socket = io("ws://127.0.0.1:27105");
 
 function Test() {
   // const [response, setResponse] = useState("");
   useEffect(() => {
-    socket.on("new-remote-operations", (message) => {
-      console.log(message, "--> message");
+    socket.on("connect", function () {
+      console.log("connect");
     });
   }, []);
 
