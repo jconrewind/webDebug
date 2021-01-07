@@ -1,19 +1,17 @@
-import openSocket from "socket.io-client";
-const socket = openSocket("http://localhost:27105");
+import React, { useEffect } from "react";
+import io from "socket.io-client";
+// const socket = io("http://localhost:27105");
+const socket = io("http://localhost:8000");
 
-function TEST() {
-  console.log(socket, "--> socket");
+function Test() {
+  // const [response, setResponse] = useState("");
+  useEffect(() => {
+    socket.on("new-remote-operations", (message) => {
+      console.log(message, "--> message");
+    });
+  }, []);
 
-  socket.on("connect", () => {
-    console.log("connect");
-  });
-
-  return (
-    <>
-      <h1 style={{ color: "white", textAlign: "centers" }}>Socket with Zeng</h1>
-      <div></div>
-    </>
-  );
+  return <p>{/* It's <time dateTime={response}>{response}</time> */}</p>;
 }
 
-export default TEST;
+export default Test;
